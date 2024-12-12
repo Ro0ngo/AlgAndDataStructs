@@ -19,22 +19,24 @@ def print_matrix(data):
         print(" | ".join(f"{str(item).rjust(max_width)}" for item in row))
 
 
-n = get_positive_integer()
-rows = int(n / 2)
+if __name__ == '__main__':
 
-matrix = [[0 for _ in range(n)] for _ in range(rows)]
-perfect_num = np.zeros(n)
+    n = get_positive_integer()
+    rows = int(n / 2)
 
-for i in range(rows):
-    for j in range(i, n, i + 1):
-        matrix[i][j] = i + 1
-        if j != i:
-            perfect_num[j] += i + 1
+    matrix = [[0 for _ in range(n)] for _ in range(rows)]
+    perfect_num = np.zeros(n)
 
-print("Совершенные числа:")
-for i in range(1, n):
-    if perfect_num[i] == i + 1:
-        print(int(perfect_num[i]))
+    for i in range(rows):
+        for j in range(i, n, i + 1):
+            matrix[i][j] = i + 1
+            if j != i:
+                perfect_num[j] += i + 1
 
-# print("Матрица:")
-# print_matrix(matrix)
+    print("Совершенные числа:")
+    for i in range(1, n):
+        if perfect_num[i] == i + 1:
+            print(int(perfect_num[i]))
+
+    # print("Матрица:")
+    # print_matrix(matrix)
