@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.sparse import lil_matrix
 
 
 def get_positive_integer():
@@ -14,24 +15,26 @@ def get_positive_integer():
 
 
 def print_matrix(data):
-    max_width = max(len(str(item)) for row in data for item in row)
-    for row in data:
+    dense_data = data.toarray()
+    max_width = max(len(str(item)) for row in dense_data for item in row)
+    for row in dense_data:
         print(" | ".join(f"{str(item).rjust(max_width)}" for item in row))
 
 
 if __name__ == '__main__':
-
     n = get_positive_integer()
-    rows = int(n / 2)
+    rows = n // 2
 
-    matrix = [[0 for _ in range(n)] for _ in range(rows)]
-    perfect_num = np.zeros(n)
+    matrix = lil_matrix((rows, n), dtype=np.int32)
+    perfect_num = np.zeros(n, dtype=np.int32)
 
     for i in range(rows):
         for j in range(i, n, i + 1):
-            matrix[i][j] = i + 1
+            matrix[i, j] = i + 1
             if j != i:
                 perfect_num[j] += i + 1
+
+    matrix_csr = matrix.tocsr()
 
     print("Совершенные числа:")
     for i in range(1, n):
@@ -39,4 +42,4 @@ if __name__ == '__main__':
             print(int(perfect_num[i]))
 
     # print("Матрица:")
-    # print_matrix(matrix)
+    # print_matrix(matrix_csr)

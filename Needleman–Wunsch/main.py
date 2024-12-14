@@ -1,9 +1,11 @@
+from tqdm import tqdm
+
 first_word = input("Введите первое слово: ").upper()
 second_word = input("Введите второе слово: ").upper()
 
 matrix = [[0] * (len(first_word) + 1) for _ in range(len(second_word) + 1)]
 
-for i in range(1, len(second_word) + 1):
+for i in tqdm(range(1, len(second_word) + 1)):
     for j in range(1, len(first_word) + 1):
         if second_word[i - 1] == first_word[j - 1]:
             matrix[i][j] = matrix[i - 1][j - 1] + 1
