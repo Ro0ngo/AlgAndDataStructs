@@ -1,5 +1,6 @@
 from typing import List
 from tqdm import tqdm
+from tabulate import tabulate
 
 
 def solve_n_queens(n: int) -> List[List[int]]:
@@ -54,23 +55,18 @@ def print_solutions(solutions: List[List[int]], n: int) -> None:
         print("Решений не найдено!")
         return
 
-    cell_width = len(str(n)) + 1
-
     for idx, solution in enumerate(solutions, start=1):
         print(f"Решение {idx}:")
 
-        header = " " * cell_width + " ".join(f"{i + 1:>{cell_width}}" for i in range(n))
-        print(header)
-
-        horizontal_line = " " * (cell_width - 1) + "+" + "-" * (cell_width * n + n + 1) + "+"
-        print(horizontal_line)
+        table = []
 
         for row in range(n):
-            line = ['Q' if col == solution[row] else '█' for col in range(n)]
-            row_number = f"{row + 1:>{cell_width - 1}}"  # Номер строки с выравниванием
-            print(f"{row_number}| " + " ".join(f"{cell:>{cell_width}}" for cell in line) + " |")
+            line = ['Q' if col == solution[row] else ' ' for col in range(n)]
+            table.append(line)
 
-        print(horizontal_line + "\n")
+        print(tabulate(table, headers=[f"{i + 1}" for i in range(n)], tablefmt="grid"))
+
+        print("\n")
 
 
 def main():
@@ -84,7 +80,10 @@ def main():
 
     solutions = solve_n_queens(n)
     print(f"Количество уникальных решений для {n}-ферзей: {len(solutions)}\n")
-    print_solutions(solutions, n)
+
+    show_table = input("Хотите увидеть матрицу? (да/нет): ").strip().lower()
+    if show_table in ['да', 'yes', 'y']:
+        print_solutions(solutions, n)
 
 
 if __name__ == "__main__":
