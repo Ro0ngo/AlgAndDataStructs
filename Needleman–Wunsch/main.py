@@ -1,4 +1,5 @@
 from tqdm import tqdm
+from tabulate import tabulate
 
 first_word = input("Введите первое слово: ").upper()
 second_word = input("Введите второе слово: ").upper()
@@ -30,5 +31,10 @@ while i > 0 and j > 0:
 print(f"Строка совпадений: {line_matches}")
 
 print("\nМатрица совпадений:")
-for row in matrix[1:]:
-    print(" ".join(map(str, row[1:])))
+headers = [""] + list(first_word)
+table = []
+
+for idx, row in enumerate(matrix[1:], start=1):
+    table.append([second_word[idx - 1]] + row[1:])
+
+print(tabulate(table, headers=headers, tablefmt="grid"))
