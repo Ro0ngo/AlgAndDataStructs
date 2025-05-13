@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.sparse import lil_matrix
 from tabulate import tabulate
 
 
@@ -34,12 +33,10 @@ if __name__ == '__main__':
         matrix = np.zeros((rows, n), dtype=np.int32)
         perfect_num = np.zeros(n, dtype=np.int32)
     else:
-        matrix = lil_matrix((rows, n), dtype=np.int32)
         perfect_num = np.zeros(n, dtype=np.int32)
 
     for i in range(rows):
         for j in range(i, n, i + 1):
-            matrix[i, j] = i + 1
             if j != i:
                 perfect_num[j] += i + 1
 
