@@ -4,7 +4,7 @@ from collections import deque, defaultdict
 
 graphs = {
     0: {
-        'S': [('A', 4), ('B', 4), ('C', 2)],
+        'S': [('A', 4), ('B', 4), ('C', 1)],
         'A': [('D', 2), ('E', 4)],
         'B': [('A', 4), ('F', 4)],
         'C': [('F', 2)],
@@ -68,7 +68,7 @@ graphs = {
     }
 }
 
-graph_number = 5
+graph_number = 0
 graph = graphs[graph_number]
 
 
